@@ -20,7 +20,7 @@ def create_task():
     task_id_control += 1 # numero do id = n+1
     tasks.append(new_task) # Adicionar a nova task à lista de tasks
     print(tasks)
-    return jsonify({"message": 'Nova tarefa criada com sucesso'}) # Por padrão, temos que voltar ou XML ou JSON, mas tem que ser com um dicionario
+    return jsonify({"message": 'Nova tarefa criada com sucesso', "id": new_task.id}) # Por padrão, temos que voltar ou XML ou JSON, mas tem que ser com um dicionario
 
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
@@ -63,6 +63,7 @@ def delete_task(id):
     for t in tasks: # 
         if t.id == id: # Nada mais nada menos que um PROCV
             task = t #
+            break # Assim que ele achou, ele para (melhoria de performance)
 
     if task == None:
         return jsonify({"message": "Não foi possivel encontrar a atividade"}), 404
